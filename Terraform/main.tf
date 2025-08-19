@@ -35,20 +35,6 @@ resource "aws_s3_bucket_acl" "website" {
   acl    = "private"
 }
 
-# Setup static website
-
-resource "aws_s3_bucket_website_configuration" "website" {
-  bucket = aws_s3_bucket.website.id
-
-  index_document {
-    suffix = "index.html"
-  }
-
-  error_document {
-    key = "error.html"
-  }
-}
-
 #Setup CloudFront OAC 
 
 resource "aws_cloudfront_origin_access_control" "QuizOAC" {
@@ -142,7 +128,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     viewer_protocol_policy = "redirect-to-https"
   }
 
-  price_class = "PriceClass_200"
+  price_class = "PriceClass_100"
 
   restrictions {
     geo_restriction {
@@ -183,3 +169,42 @@ resource "aws_s3_bucket_policy" "quiz_policy" {
   })
 }
 
+#Setup Cognito User Pool & UI
+
+resource "aws_cognito_user_pool" "quiz_pool" {
+  name = "quiz-user-pool"
+
+  # MFA & Security
+  mfa_configuration = "ON"   # Enforces MFA for all users
+  software_token_mfa_configuration {
+    enabled = true          # TOTP MFA (Google Authenticator)
+  }
+
+  # Password policy
+  password_policy {
+    minimum_length    = 10
+    require_uppercase = true
+    require_lowercase = true
+    require_numbers   = true
+    require_symbols   = true
+  }
+
+  # Email verification
+  auto_verified_attributes = ["email"]
+}
+
+resource "aws_cognito_user_pool_client" "quiz_client" {
+  name         = "quiz-app-client"
+  user_pool_id = aws_cognito_user_pool.quiz_pool.id
+
+  explicit_auth_flows = [
+    "ALLOW_USER_SRP_AUTH",
+    "ALLOW_REFRESH_TOKEN_AUTH"
+  ]
+
+  prevent_user_existence_errors = "ENABLED"
+
+# Hosted UI redirect
+  callback_urls = ["https://d2vb6rqa0f3y75.cloudfront.net"]
+  logout_urls   = ["https://d2vb6rqa0f3y75.cloudfront.net"]
+}
