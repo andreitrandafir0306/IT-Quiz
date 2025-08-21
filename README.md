@@ -2,7 +2,9 @@
 
 ```sh
 A simple IT quiz which is using the AWS Infrastructure and a bit of front-end tools.
-This project stays entirely in the boundaries of AWS Free Tier because of a very large caveat, often met in real-life workplace environments: Costs, Costs and again ... Costs. Hence, that is why Route 53 or WAF were not used here, although they could make our lives easier.
+This project stays entirely in the boundaries of AWS Free Tier because of a very large caveat, often met in real-life workplace environments:
+Costs, Costs and again ... Costs.
+Hence, that is why Route 53 or WAF were not used here, although they could make our lives easier.
 ```
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
