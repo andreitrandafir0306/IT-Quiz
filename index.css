@@ -1,283 +1,314 @@
-
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html, body{
-    height: 100%;
-}
-
-
-body{
-    font-family: 'Montserrat', serif;
-
-}
-
-main{
-    width: 100%;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: lightcyan;
-    background: url('../assets/background_image.jpg');
-    background-color : lightcyan;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-
-.game-quiz-container{
-    width: 40rem;
-    height: 30rem;
-    background-color: lightgray;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    border-radius: 30px;
-}
-
-.game-details-container{
-    width: 80%;
-    height: 4rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.game-details-container h1{
-    font-size: 1.2rem;
-}
-
-.game-question-container{
-    width: 80%;
-    height: 8rem;
-    display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid darkgray;
-    border-radius: 25px;
+    padding: 20px;
 }
 
-.game-question-container h1{
-    font-size: 1.1rem;
-    text-align: center;
-    padding: 3px;
-}
-
-.game-options-container{
-    width: 80%;
-    height: 12rem;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.game-options-container span{
-    width: 45%;
-    height: 3rem;
-    border: 2px solid darkgray;
+.container {
+    max-width: 800px;
+    width: 100%;
+    background: white;
     border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    overflow: hidden;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+header {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+header p {
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+.quiz-container {
+    padding: 40px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    margin-bottom: 20px;
     overflow: hidden;
 }
-span label{
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #28a745, #20c997);
+    border-radius: 4px;
+    width: 10%;
+    transition: width 0.3s ease;
+}
+
+.question-counter {
+    text-align: center;
+    font-size: 1.1em;
+    color: #6c757d;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.question-card {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.question-card:hover {
+    border-color: #dee2e6;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+#questionText {
+    font-size: 1.4em;
+    margin-bottom: 25px;
+    color: #343a40;
+    line-height: 1.5;
+}
+
+.options {
+    display: grid;
+    gap: 15px;
+}
+
+.option {
+    position: relative;
+}
+
+.option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.option label {
+    display: block;
+    padding: 18px 25px;
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1em;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.option label:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.3s;
-    font-weight: 600;
-    color: rgb(22, 22, 22);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
 }
 
-span label:hover{
-    -ms-transform: scale(1.12);
-    -webkit-transform: scale(1.12);
-    transform: scale(1.12);
+.option input[type="radio"]:checked + label {
+    background: linear-gradient(135deg, #007bff, #0056b3);
     color: white;
+    border-color: #007bff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,123,255,0.3);
 }
 
-input[type="radio"] {
-    position: relative;
-    display: none;
+.option label:hover {
+    border-color: #007bff;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
-
-input[type=radio]:checked ~ .option {
-    background: paleturquoise;
+.option label:hover:before {
+    left: 100%;
 }
 
-.next-button-container{
-    width: 50%;
-    height: 3rem;
+.navigation {
     display: flex;
-    justify-content: center;
-}
-.next-button-container button{
-    width: 8rem;
-    height: 2rem;
-    border-radius: 10px;
-    background: none;
-    color: rgb(25, 25, 25);
-    font-weight: 600;
-    border: 2px solid gray;
-    cursor: pointer;
-    outline: none;
-}
-.next-button-container button:hover{
-    background-color: rgb(143, 93, 93);
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
 }
 
-.modal-container{
-    display: none;
-    position: fixed;
-    z-index: 1; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; 
-    -webkit-animation: fadeIn 1.2s ease-in-out;
-    animation: fadeIn 1.2s ease-in-out;
-}
-
-.modal-content-container{
-    height: 20rem;
-    width: 25rem;
-    background-color: rgb(43, 42, 42);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+.btn {
+    padding: 12px 30px;
+    border: none;
     border-radius: 25px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
 }
 
-.modal-content-container h1{
-    font-size: 1.3rem;
-    height: 3rem;
-    color: lightgray;
-    text-align: center;
+.btn:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
 }
 
-.grade-details{
-    width: 15rem;
-    height: 10rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+.btn:hover:before {
+    width: 300px;
+    height: 300px;
 }
 
-.grade-details p{
+.btn-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3);
     color: white;
-    text-align: center;
 }
 
-.modal-button-container{
-    height: 2rem;
-    width: 100%;
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,123,255,0.3);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #6c757d, #495057);
+    color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(108,117,125,0.3);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #28a745, #1e7e34);
+    color: white;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(40,167,69,0.3);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.completion-message {
+    text-align: center;
+    padding: 60px 40px;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+}
+
+.completion-message h2 {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+}
+
+.completion-message p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.completion-icon {
+    font-size: 4em;
+    background: rgba(255,255,255,0.2);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0 auto;
+    animation: checkmark 0.5s ease-in-out;
 }
 
-.modal-button-container button{
-    width: 10rem;
-    height: 2rem;
-    background: none;
-    outline: none;
-    border: 1px solid rgb(252, 242, 241);
-    color: white;
-    font-size: 1.1rem;
-    cursor: pointer;
-    border-radius: 20px;
-}
-.modal-button-container button:hover{
-    background-color: rgb(83, 82, 82);
-}
-
-@media(min-width : 300px) and (max-width : 350px){
-    .game-quiz-container{
-        width: 90%;
-        height: 80vh;
-     }
-     .game-details-container h1{
-        font-size: 0.8rem;
-     }
-
-     .game-question-container{
-        height: 6rem;
-     }
-     .game-question-container h1{
-       font-size: 0.9rem;
+@keyframes checkmark {
+    0% {
+        transform: scale(0);
     }
-
-    .game-options-container span{
-        width: 90%;
-        height: 2.5rem;
+    50% {
+        transform: scale(1.2);
     }
-    .game-options-container span label{
-        font-size: 0.8rem;
-    }
-    .modal-content-container{
-        width: 90%;
-        height: 25rem;
-    }
-
-    .modal-content-container h1{
-        font-size: 1.2rem;
+    100% {
+        transform: scale(1);
     }
 }
 
-@media(min-width : 350px) and (max-width : 700px){
-   .game-quiz-container{
-       width: 90%;
-       height: 80vh;
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        border-radius: 15px;
     }
-    .game-details-container h1{
-        font-size: 1rem;
+    
+    header {
+        padding: 30px 20px;
     }
-
-    .game-question-container{
-        height: 8rem;
+    
+    header h1 {
+        font-size: 2em;
     }
-
-    .game-question-container h1{
-        font-size: 0.9rem;
-     }
-
-    .game-options-container span{
-        width: 90%;
+    
+    .quiz-container {
+        padding: 30px 20px;
     }
-    .modal-content-container{
-        width: 90%;
-        height: 25rem;
+    
+    #questionText {
+        font-size: 1.2em;
     }
-    .modal-content-container h1{
-        font-size: 1.2rem;
+    
+    .navigation {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
     }
 }
-
-
-
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity:1 ;}
-  }
-
-  @-webkit-keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-  }

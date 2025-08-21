@@ -216,54 +216,55 @@ function nextQuestion() {
     }
 }
 
+// Submit quiz
+function submitQuiz(event) {
+    event.preventDefault();
+    saveCurrentAnswer();
+    
+    // Prepare quiz results for submission
+    const score = {
+        answers: answers,
+        totalQuestions: questions.length,
+        timestamp: new Date().toISOString(),
+        questions: questions
+    };
+    
+    // Here you would typically send the results to your AWS backend
+    // For now, we'll just log it and show completion message
+    console.log('Quiz Results:', score);
+    
+    // Show completion message
+    document.querySelector('.quiz-container').style.display = 'none';
+    completionMessage.style.display = 'block';
+}
+
 // Event listeners
 prevBtn.addEventListener('click', previousQuestion);
 nextBtn.addEventListener('click', nextQuestion);
 quizForm.addEventListener('submit', submitQuiz);
+
+// Initialize the quiz when the page loads
 document.addEventListener('DOMContentLoaded', initializeQuiz);
 
-// Submit quiz function
-async function submitQuiz(event) {
-    event.preventDefault();
-    saveCurrentAnswer(); // Save the current answer
-
-    // Prepare quiz results
-    const score = {
-        answers: answers,             // assume 'answers' is a global array
-        totalQuestions: questions.length, // assume 'questions' is global
-        timestamp: new Date().toISOString(),
-        questions: questions
-    };
-
-    console.log('Quiz Results:', score);
-
-    // Hide quiz and show completion message
-    document.querySelector('.quiz-container').style.display = 'none';
-    completionMessage.style.display = 'block';
-
-    // Send results to AWS
-    try {
-        const apiUrl = await getApiUrl();
-        const response = await fetch(apiUrl, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ userscore: score })
-        });
-
-        const data = await response.json();
-        console.log("Result saved:", data);
-    } catch (err) {
-        console.error("Error submitting quiz:", err);
-    }
-}
-
-// Function to get API URL from metadata
+// Function to send results to AWS
 async function getApiUrl() {
     const response = await fetch("index.js", { method: "HEAD" });
     const apiUrl = response.headers.get("x-amz-meta-api-url");
     return apiUrl;
 }
 
+getApiUrl().then(apiUrl => {
+    console.log("Loaded API URL:", apiUrl);
+    // later you can use it in fetch()
+    fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userscore: score })
+    })
+    .then(res => res.json())
+    .then(data => console.log("Result saved:", data))
+    .catch(err => console.error(err));
+});
 
 
 
