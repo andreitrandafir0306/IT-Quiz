@@ -111,10 +111,9 @@ const questions = [
     }
 ];
 
-
-
 let currentQuestionIndex = 0;
 let answers = {};
+let totalScore = 0;
 
 // DOM elements
 const questionText = document.getElementById('questionText');
@@ -198,6 +197,19 @@ function saveCurrentAnswer() {
     }
 }
 
+// Calculate total score
+function calculateScore() {
+    let score = 0;
+    questions.forEach(question => {
+        const userAnswer = answers[question.id];
+        if (userAnswer === question.correctAnswer) {
+            score++;
+        }
+    });
+    return score;
+}
+
+
 // Navigate to previous question
 function previousQuestion() {
     saveCurrentAnswer();
@@ -227,43 +239,28 @@ async function submitQuiz(event) {
     event.preventDefault();
     saveCurrentAnswer(); // Save the current answer
 
-    // Prepare quiz results
-    const score = {
-        answers: answers,             // assume 'answers' is a global array
-        totalQuestions: questions.length, // assume 'questions' is global
-        timestamp: new Date().toISOString(),
-        questions: questions
-    };
+    // Calculate final score
+    totalScore = calculateScore();
 
-    console.log('Quiz Results:', score);
-
-    // Hide quiz and show completion message
-    document.querySelector('.quiz-container').style.display = 'none';
+// Show completion message
+     document.querySelector('.quiz-container').style.display = 'none';
     completionMessage.style.display = 'block';
 
     // Send results to AWS
     try {
-        const apiUrl = await getApiUrl();
-        const response = await fetch(apiUrl, {
+        const response = await fetch("https://a8en3zrn6d.execute-api.eu-central-1.amazonaws.com/success/submit", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ userscore: score })
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(totalScore)
         });
 
         const data = await response.json();
         console.log("Result saved:", data);
-    } catch (err) {
+    }
+    catch (err) {
         console.error("Error submitting quiz:", err);
     }
 }
-
-// Function to get API URL from metadata
-async function getApiUrl() {
-    const response = await fetch("index.js", { method: "HEAD" });
-    const apiUrl = response.headers.get("x-amz-meta-api-url");
-    return apiUrl;
-}
-
 
 
 
