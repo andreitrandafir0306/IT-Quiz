@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
+    <div class="form-container" id="emailDiv" style="display:none">
+            <h2>Te rog sa introduci adresa de email.</h2>
+        <form id="emailForm">
+        <input type="email" id="useremail" placeholder="E-Mail ..." style="display:none">
+        <button id="emailSubmitBtn" style="display:none">Trimitere</button>
+        </form>
+    </div>
+
     <div class="container">
         <header>
             <h1>Intrebari pentru rezidentiat</h1>
@@ -37,7 +45,7 @@
 
         <div class="completion-message" id="completionMessage" style="display: none;">
             <h2>Felicitari! Ai completat testul!</h2>
-            <p>Raspunsurile ti-au fost inregistrate. Rezultatele iti vor fi trimise pe e-mail</p>
+            <p>Raspunsurile ti-au fost inregistrate. Pentru a primi rezultatele completeaza adresa de e-mail in campul de mai sus.</p>
             <div class="completion-icon">✓</div>
         </div>
     </div>

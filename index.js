@@ -126,6 +126,10 @@ const nextBtn = document.getElementById('nextBtn');
 const submitBtn = document.getElementById('submitBtn');
 const quizForm = document.getElementById('quizForm');
 const completionMessage = document.getElementById('completionMessage');
+const emailDiv = document.getElementById('emailDiv')
+const useremail = document.getElementById('useremail');
+const emailSubmitBtn = document.getElementById('emailSubmitBtn');
+const emailForm = document.getElementById('emailForm')
 
 // Initialize quiz
 function initializeQuiz() {
@@ -233,6 +237,7 @@ prevBtn.addEventListener('click', previousQuestion);
 nextBtn.addEventListener('click', nextQuestion);
 quizForm.addEventListener('submit', submitQuiz);
 document.addEventListener('DOMContentLoaded', initializeQuiz);
+emailSubmitBtn.addEventListener('click', submitEmail);
 
 // Submit quiz function
 async function submitQuiz(event) {
@@ -242,20 +247,35 @@ async function submitQuiz(event) {
     // Calculate final score
     totalScore = calculateScore();
 
-// Show completion message
-     document.querySelector('.quiz-container').style.display = 'none';
+// Show completion message and email input
+    document.querySelector('.quiz-container').style.display = 'none';
     completionMessage.style.display = 'block';
+    emailDiv.style.display = 'block';
+    emailForm.style.display = 'block';
+    useremail.style.display = 'block';
+    emailSubmitBtn.style.display = 'inline-block';
 
-    // Send results to AWS
+}
+
+    // Send score and email results to AWS after user inputs email
+
+async function submitEmail() {
+    const email = useremail.value.trim();
+
+    if (!email) {
+        alert("Please enter an email before submitting!");
+        return;
+    }
+
     try {
         const response = await fetch("https://a8en3zrn6d.execute-api.eu-central-1.amazonaws.com/success/submit", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(totalScore)
+            body: JSON.stringify({totalScore,email})
         });
 
         const data = await response.json();
-        console.log("Result saved:", data);
+        console.log("Score and email saved:", data);
     }
     catch (err) {
         console.error("Error submitting quiz:", err);
