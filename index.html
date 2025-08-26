@@ -7,14 +7,7 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="form-container" id="emailDiv" style="display:none">
-            <h2>Te rog sa introduci adresa de email.</h2>
-        <form id="emailForm">
-        <input type="email" id="useremail" placeholder="E-Mail ..." style="display:none">
-        <button id="emailSubmitBtn" style="display:none">Trimitere</button>
-        </form>
-    </div>
-
+    
     <div class="container">
         <header>
             <h1>Intrebari pentru rezidentiat</h1>
@@ -42,14 +35,23 @@
                 </div>
             </form>
         </div>
+        </div>
 
         <div class="completion-message" id="completionMessage" style="display: none;">
-            <h2>Felicitari! Ai completat testul!</h2>
-            <p>Raspunsurile ti-au fost inregistrate. Pentru a primi rezultatele completeaza adresa de e-mail in campul de mai sus.</p>
             <div class="completion-icon">✓</div>
+            <h2>Felicitari! Ai completat testul!</h2>
+            <p>Raspunsurile ti-au fost inregistrate. Pentru a primi rezultatele completeaza adresa de e-mail in campul de mai jos.</p>
+            <button class="btn btn-success" onclick="retryQuiz()" style="margin-top: 20px;">Reia testul</button>
+        
+       
+            <div class="email-container" id="emailDiv" style="display:none">
+                <div class="email-form">
+                            <h3>Te rog sa introduci adresa de email.</h3>
+                            <input type="email" id="useremail" placeholder="E-Mail ..." style="display:none">
+                            <button class ="btn btn-primary" id="emailSubmitBtn" style="display:none">Trimitere</button>
+                </div>
+            </div>
         </div>
-    </div>
-
     <script src="index.js"></script>
 </body>
 </html>

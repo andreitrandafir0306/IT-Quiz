@@ -53,41 +53,35 @@ header p {
     opacity: 0.9;
 }
 
-.form-container {
-    background: #fff;
-    padding: 20 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+.email-container {
+    background: white;
+    padding: 40px;
     text-align: center;
-    width: 300px;
+    display: none;
+    margin-top:20px;
+    border-bottom-left-radius: 0;  
+    border-bottom-right-radius: 0; 
 }
 
-h2 {
-    margin-bottom: 15px;
+.email-form h3 {
+    color: #343a40;
+    margin-bottom: 20px;
+    font-size: 1.2em;
 }
 
-input {
-    padding: 10px;
+.email-form input[type="email"] {
     width: 100%;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+    max-width: 1000px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1em;
 }
 
-button {
-    padding: 10px;
-    width: 100%;
-    border: none;
-    background: #0073e6;
-    color: white;
-    font-size: 16px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-#message {
-  margin-top: 10px;
-  font-size: 14px;
+.email-form input[type="email"]:focus {
+    outline: none;
+    border-color: #007bff;
 }
 
 .quiz-container {
@@ -280,6 +274,8 @@ button {
     padding: 60px 40px;
     background: linear-gradient(135deg, #28a745, #20c997);
     color: white;
+    border-bottom-left-radius: 0;  
+    border-bottom-right-radius: 0; 
 }
 
 .completion-message h2 {

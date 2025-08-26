@@ -129,7 +129,7 @@ const completionMessage = document.getElementById('completionMessage');
 const emailDiv = document.getElementById('emailDiv')
 const useremail = document.getElementById('useremail');
 const emailSubmitBtn = document.getElementById('emailSubmitBtn');
-const emailForm = document.getElementById('emailForm')
+
 
 // Initialize quiz
 function initializeQuiz() {
@@ -249,38 +249,56 @@ async function submitQuiz(event) {
 
 // Show completion message and email input
     document.querySelector('.quiz-container').style.display = 'none';
+    document.querySelector('.container').style.display = 'none';
     completionMessage.style.display = 'block';
     emailDiv.style.display = 'block';
-    emailForm.style.display = 'block';
     useremail.style.display = 'block';
     emailSubmitBtn.style.display = 'inline-block';
 
 }
 
+// Retry quiz on user input
+
+function retryQuiz() {
+            currentQuestionIndex = 0;
+            answers = {};
+            completionMessage.style.display = 'none';
+            emailDiv.style.display = 'none';
+            document.querySelector('.quiz-container').style.display = 'block';
+            document.querySelector('.container').style.display = 'block';
+            useremail.style.display = 'none';
+            emailSubmitBtn.style.display = 'none';
+            displayQuestion();
+        }
+
     // Send score and email results to AWS after user inputs email
 
-async function submitEmail() {
-    const email = useremail.value.trim();
+    async function submitEmail() {
+        const email = useremail.value.trim();
 
-    if (!email) {
-        alert("Please enter an email before submitting!");
-        return;
-    }
+        if (!email) {
+            alert("Please enter an email before submitting!");
+            return;
+        }
 
-    try {
-        const response = await fetch("https://a8en3zrn6d.execute-api.eu-central-1.amazonaws.com/success/submit", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({totalScore,email})
-        });
+        try {
+            const response = await fetch("https://a8en3zrn6d.execute-api.eu-central-1.amazonaws.com/success/submit", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    email: useremail.value,
+                    totalScore: totalScore
+                })
+            });
 
-        const data = await response.json();
-        console.log("Score and email saved:", data);
+            const data = await response.json();
+            console.log("Score and email saved:", data);
+            alert("Adresa de e-mail a fost transmisa! Poti parasi testul sau sa il reiei.");
+        }
+        catch (err) {
+            console.error("Error submitting quiz:", err);
+        }
     }
-    catch (err) {
-        console.error("Error submitting quiz:", err);
-    }
-}
 
 
 
