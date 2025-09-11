@@ -7,9 +7,10 @@ resource "aws_cloudfront_origin_access_control" "QuizAC" {
   signing_protocol                  = "sigv4"
 }
 
-# Setup CloudFront distribution
+# Setup CloudFront distribution with S3 & API GW Origin
 locals {
   s3_origin_id = "myS3Origin"
+  api_origin_id = "myAPIOrigin"
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
@@ -18,6 +19,18 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     origin_access_control_id = aws_cloudfront_origin_access_control.QuizAC.id
     origin_id                = local.s3_origin_id
   }
+
+  origin {
+    domain_name              = "${aws_api_gateway_rest_api.api.id}.execute-api.${var.region}.amazonaws.com"
+    origin_id                = local.api_origin_id
+  }
+
+  custom_origin_config {
+        http_port              = 80
+        https_port             = 443
+        origin_protocol_policy = "https-only"
+        origin_ssl_protocols   = ["TLSv1.2"]
+      }
 
   enabled             = true
   is_ipv6_enabled     = true
@@ -45,13 +58,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   price_class = "PriceClass_100"
-
-  restrictions {
-    geo_restriction {
-      restriction_type = "whitelist"
-      locations        = ["RO"]
-    }
-  }
 
   viewer_certificate {
     cloudfront_default_certificate = true

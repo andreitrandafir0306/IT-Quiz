@@ -29,11 +29,6 @@ resource "aws_s3_object" "js" {
   key    = "index.js"
   source = "../index.js"
   content_type = "application/javascript"
-
-
-  metadata = {
-    api-url = "https://${aws_api_gateway_rest_api.quiz_api.id}.execute-api.${var.region}.amazonaws.com/${aws_api_gateway_stage.quiz_api_stage.stage_name}/submit"
-  }
   
 }
 

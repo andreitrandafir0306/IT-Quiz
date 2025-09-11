@@ -3,5 +3,5 @@
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {"ghcr.io/devcontainers/features/aws-cli:1": {},
               "ghcr.io/devcontainers-extra/features/terraform-asdf:2": {} },
-  "postCreateCommand": "apt update && apt upgrade -y" 
+  "postCreateCommand": "sudo apt update && sudo apt upgrade -y" 
 }
