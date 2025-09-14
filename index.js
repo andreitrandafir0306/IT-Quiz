@@ -282,7 +282,7 @@ function retryQuiz() {
         }
 
         try {
-            const response = await fetch("https://a8en3zrn6d.execute-api.eu-central-1.amazonaws.com/success/submit", {
+            const response = await fetch("https://lvsek34agc.execute-api.eu-central-1.amazonaws.com/success/submit", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({

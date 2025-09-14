@@ -1,7 +1,7 @@
 # Create S3 bucket 
 
 resource "aws_s3_bucket" "website" {
-  bucket = "my-it-quiz-123"
+  bucket = "my-it-quiz-1234"
 
   tags = {
     Name        = "Simple IT Quiz"
@@ -78,7 +78,7 @@ resource "aws_s3_bucket_policy" "quiz_policy" {
         Resource = "${aws_s3_bucket.website.arn}/*"
         Condition = {
           StringEquals = {
-            "AWS:SourceArn" = "aws_cloudfront_distribution.s3_distribution.arn"
+            "AWS:SourceArn" = "${aws_cloudfront_distribution.s3_distribution.arn}"
           }
         }
       }

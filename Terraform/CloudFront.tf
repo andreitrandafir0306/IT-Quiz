@@ -21,17 +21,17 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   origin {
-    domain_name              = "${aws_api_gateway_rest_api.api.id}.execute-api.${var.region}.amazonaws.com"
+    domain_name              = "${aws_api_gateway_rest_api.quiz_api.id}.execute-api.${var.region}.amazonaws.com"
     origin_id                = local.api_origin_id
-  }
+  
 
   custom_origin_config {
         http_port              = 80
         https_port             = 443
         origin_protocol_policy = "https-only"
         origin_ssl_protocols   = ["TLSv1.2"]
-      }
-
+    }
+  }
   enabled             = true
   is_ipv6_enabled     = true
   comment             = "Welcome to the IT Quiz!"
@@ -58,6 +58,13 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   price_class = "PriceClass_100"
+
+   restrictions {
+    geo_restriction {
+      restriction_type = "whitelist"
+      locations        = ["US", "CA", "GB", "DE", "RO"]
+    }
+  }
 
   viewer_certificate {
     cloudfront_default_certificate = true
