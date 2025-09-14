@@ -1,7 +1,7 @@
 {
   "name": "it-quiz-devcontainer",
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
   "features": {"ghcr.io/devcontainers/features/aws-cli:1": {},
               "ghcr.io/devcontainers-extra/features/terraform-asdf:2": {} },
-  "postCreateCommand": "sudo apt update && sudo apt upgrade -y" 
+  "postCreateCommand": "apt-get update && apt-get upgrade -y" 
 }
