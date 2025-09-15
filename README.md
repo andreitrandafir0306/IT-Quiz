@@ -88,7 +88,7 @@ It showcases a full end-to-end architecture: static front-end, API backend, serv
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/quiz-app.git
+   git clone https://github.com/andreitrandafir0306/IT-Quiz.git
    cd quiz-app/terraform
 
 2. Set up Terraform:
