@@ -108,7 +108,7 @@ resource "aws_lambda_permission" "apigw_lambda" {
   source_arn    = "${aws_api_gateway_rest_api.quiz_api.execution_arn}/*/*"
 }
 
-# Deploy & Stage the API and enable logging + permission to write to CloudWatch 
+# Deploy & Stage the API 
 
 resource "aws_api_gateway_deployment" "quiz_api_deploy" {
   rest_api_id = aws_api_gateway_rest_api.quiz_api.id
@@ -120,3 +120,4 @@ resource "aws_api_gateway_stage" "quiz_api_stage" {
   deployment_id = aws_api_gateway_deployment.quiz_api_deploy.id
   stage_name    = "success"
 }
+
