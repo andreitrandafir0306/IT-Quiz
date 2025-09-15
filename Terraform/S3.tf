@@ -1,7 +1,11 @@
-# Create S3 bucket 
+# Create S3 bucket and generate a unique name
+
+resource "random_uuid" "uuid" {}
 
 resource "aws_s3_bucket" "website" {
-  bucket = "my-it-quiz-1234"
+  
+  bucket = "it-quiz-${random_uuid.uuid.id}"
+
 
   tags = {
     Name        = "Simple IT Quiz"

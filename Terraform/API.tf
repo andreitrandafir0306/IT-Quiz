@@ -30,6 +30,7 @@ resource "aws_api_gateway_method_response" "method_response_200" {
   http_method = aws_api_gateway_method.submit_options.http_method
   status_code = "200"
   response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true
     "method.response.header.Access-Control-Allow-Methods" = true
     "method.response.header.Access-Control-Allow-Origin" = true
   }
@@ -42,6 +43,9 @@ resource "aws_api_gateway_integration" "submit_options_integration" {
   resource_id = aws_api_gateway_resource.submit.id
   http_method = aws_api_gateway_method.submit_options.http_method
   type        = "MOCK"
+  request_templates = {
+    "application/json" = "{\"statusCode\": 200}"
+  }
 }
 
 # Create MOCK integration response 
@@ -53,17 +57,34 @@ resource "aws_api_gateway_integration_response" "quiz_integration_response" {
   status_code = aws_api_gateway_method_response.method_response_200.status_code
   response_parameters = {
     "method.response.header.Access-Control-Allow-Methods" = "'OPTIONS,POST'"
-    "method.response.header.Access-Control-Allow-Origin" = "'${aws_cloudfront_distribution.s3_distribution.domain_name}'"
-
+    "method.response.header.Access-Control-Allow-Origin" = "'https://${aws_cloudfront_distribution.s3_distribution.domain_name}'"
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type'"
+  }
+    response_templates = {
+    "application/json" = "{}"   # empty JSON body
   }
 }
 
-# Create POST to Lambda
+# Create POST method with proxy integration to Lambda
 resource "aws_api_gateway_method" "submit_post" {
   rest_api_id   = aws_api_gateway_rest_api.quiz_api.id
   resource_id   = aws_api_gateway_resource.submit.id
   http_method   = "POST"
   authorization = "NONE"
+}
+
+#Create POST method response
+
+resource "aws_api_gateway_method_response" "post_method_response_200" {
+  rest_api_id = aws_api_gateway_rest_api.quiz_api.id
+  resource_id = aws_api_gateway_resource.submit.id
+  http_method = aws_api_gateway_method.submit_post.http_method
+  status_code = "200"
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true
+    "method.response.header.Access-Control-Allow-Methods" = true
+    "method.response.header.Access-Control-Allow-Origin" = true
+  }
 }
 
 #Connect API GW with Lambda

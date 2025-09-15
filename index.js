@@ -126,7 +126,7 @@ const nextBtn = document.getElementById('nextBtn');
 const submitBtn = document.getElementById('submitBtn');
 const quizForm = document.getElementById('quizForm');
 const completionMessage = document.getElementById('completionMessage');
-const emailDiv = document.getElementById('emailDiv')
+const emailDiv = document.getElementById('emailDiv');
 const useremail = document.getElementById('useremail');
 const emailSubmitBtn = document.getElementById('emailSubmitBtn');
 
@@ -281,8 +281,10 @@ function retryQuiz() {
             return;
         }
 
+    // Provide own API Gateway invoke URL for the fetch
+
         try {
-            const response = await fetch("https://lvsek34agc.execute-api.eu-central-1.amazonaws.com/success/submit", {
+            const response = await fetch("<API FETCH URL>", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({

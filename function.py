@@ -5,6 +5,9 @@ import boto3
 
 dynamodb = boto3.resource("dynamodb")
 table = dynamodb.Table(os.environ["TABLE_NAME"])
+distribution = os.environ["DISTRIBUTION_NAME"]
+
+
 
 def handler(event, context):
     print("Event received:" , event)
@@ -13,7 +16,7 @@ def handler(event, context):
         return {
             "statusCode": 200,
             "headers": {
-                "Access-Control-Allow-Origin": "https://d39sv4r25mde6w.cloudfront.net",
+                "Access-Control-Allow-Origin": distribution,
                 "Access-Control-Allow-Headers": "Content-Type",
                 "Access-Control-Allow-Methods": "OPTIONS,POST",
             },
@@ -27,7 +30,7 @@ def handler(event, context):
         return {
             "statusCode": 400,
             "headers": {
-                "Access-Control-Allow-Origin": "https://d39sv4r25mde6w.cloudfront.net",
+                "Access-Control-Allow-Origin": distribution,
                 "Access-Control-Allow-Headers": "Content-Type",
                 "Access-Control-Allow-Methods": "OPTIONS,POST",
             },
@@ -43,7 +46,7 @@ def handler(event, context):
         return {
             "statusCode": 400,
             "headers": {
-                "Access-Control-Allow-Origin": "https://d39sv4r25mde6w.cloudfront.net",
+                "Access-Control-Allow-Origin": distribution,
                 "Access-Control-Allow-Headers": "Content-Type",
                 "Access-Control-Allow-Methods": "OPTIONS,POST",
             },
@@ -67,7 +70,7 @@ def handler(event, context):
         return {
             "statusCode": 500,
             "headers": {
-                "Access-Control-Allow-Origin": "https://d39sv4r25mde6w.cloudfront.net",
+                "Access-Control-Allow-Origin": distribution,
                 "Access-Control-Allow-Headers": "Content-Type",
                 "Access-Control-Allow-Methods": "OPTIONS,POST",
             },
@@ -84,7 +87,7 @@ def handler(event, context):
     return {
         "statusCode": 200,
         "headers": {
-            "Access-Control-Allow-Origin": "https://d39sv4r25mde6w.cloudfront.net",
+            "Access-Control-Allow-Origin": distribution,
             "Access-Control-Allow-Headers": "Content-Type",
             "Access-Control-Allow-Methods": "OPTIONS,POST",
         },
