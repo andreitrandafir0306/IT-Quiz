@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intrebari pentru rezidentiat</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    
+    <div class="container">
+        <header>
+            <h1>Intrebari pentru rezidentiat</h1>
+            <p>Testeaza-ti cunostintele pentru rezidentiat cu aceste 10 intrebari.</p>
+        </header>
+
+        <div class="quiz-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="question-counter">
+                <span id="currentQuestion">1</span> / <span id="totalQuestions">10</span>
+            </div>
+
+            <form id="quizForm">
+                <div class="question-card" id="questionCard">
+                    <h2 id="questionText"></h2>
+                    <div class="options" id="optionsContainer"></div>
+                </div>
+
+                <div class="navigation">
+                    <button type="button" id="prevBtn" class="btn btn-secondary" disabled>Intrebarea anterioara</button>
+                    <button type="button" id="nextBtn" class="btn btn-primary">Urmatoarea intrebare</button>
+                    <button type="submit" id="submitBtn" class="btn btn-success" style="display: none;">Finalizeaza testul</button>
+                </div>
+            </form>
+        </div>
+        </div>
+
+        <div class="completion-message" id="completionMessage" style="display: none;">
+            <div class="completion-icon">✓</div>
+            <h2>Felicitari! Ai completat testul!</h2>
+            <p>Raspunsurile ti-au fost inregistrate. Pentru a primi rezultatele completeaza adresa de e-mail in campul de mai jos.</p>
+            <button class="btn btn-success" onclick="retryQuiz()" style="margin-top: 20px;">Reia testul</button>
+        
+       
+            <div class="email-container" id="emailDiv" style="display:none">
+                <div class="email-form">
+                            <h3>Te rog sa introduci adresa de email.</h3>
+                            <input type="email" id="useremail" placeholder="E-Mail ..." style="display:none">
+                            <button class ="btn btn-primary" id="emailSubmitBtn" style="display:none">Trimitere</button>
+                </div>
+            </div>
+        </div>
+    <script src="index.js"></script>
+</body>
+</html>
