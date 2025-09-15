@@ -1,6 +1,6 @@
 # Setup CloudFront OAC
 resource "aws_cloudfront_origin_access_control" "QuizAC" {
-  name                              = "QuizOAC"
+  name                              = "QuizOAC${random_uuid.uuid.id}"
   description                       = "The OAC for the IT Quiz"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
