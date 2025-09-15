@@ -1,111 +1,111 @@
 const questions = [
     {
         id: 1,
-        question: "Elementul principal de retenție al unei proteze totale este:",
+        question: "What is AWS?",
         options: [
-            "Gravitația",
-            "Adeziunea salivară",
-            "Stabilitatea ocluzală",
-            "Presiunea atmosferică"
+            "A programming language",
+            "A cloud service provider",
+            "A database software",
+            "A web browser"
         ],
         correctAnswer: 1
     },
     {
         id: 2,
-        question: "Funcția principală a planului de ocluzie în protetica totală este:",
+        question: "What is an EC2 instance used for?",
         options: [
-            "Determinarea liniei mediane",
-            "Asigurarea esteticii",
-            "Stabilirea dimensiunii verticale",
-            "Crearea spațiului pentru limbă"
-        ],
-        correctAnswer: 2
-    },
-    {
-        id: 3,
-        question: "Principiul cel mai important în prepararea dinților pentru coroane este:",
-        options: [
-            "Îndepărtarea totală a smalțului",
-            "Crearea retenției și rezistenței optime",
-            "Reducerea excesivă a dintelui",
-            "Crearea unei suprafețe rugoase"
+            "Storing files",
+            "Running virtual servers",
+            "Sending emails",
+            "Monitoring network traffic"
         ],
         correctAnswer: 1
     },
     {
-        id: 4,
-        question: "Materialul de amprentă cel mai frecvent folosit în protetica fixă este:",
+        id: 3,
+        question: "What does S3 stand for in AWS?",
         options: [
-            "Ghipsul",
-            "Alginatele",
-            "Siliconii de adiție",
-            "Ceara"
+            "Simple Storage Service",
+            "Secure Server System",
+            "System Storage Solution",
+            "Simple Server Service"
         ],
-        correctAnswer: 2
+        correctAnswer: 0
+    },
+    {
+        id: 4,
+        question: "What is an AWS Region?",
+        options: [
+            "A single data center",
+            "A geographic area with multiple data centers",
+            "A type of EC2 instance",
+            "A storage bucket"
+        ],
+        correctAnswer: 1
     },
     {
         id: 5,
-        question: "Într-o proteză scheletală, rolul principal al croșetelor este:",
+        question: "Which AWS service is used for relational databases?",
         options: [
-            "Suport",
-            "Stabilitate",
-            "Retenție",
-            "Estetică"
+            "EC2",
+            "RDS",
+            "S3",
+            "Lambda"
         ],
-        correctAnswer: 2
+        correctAnswer: 1
     },
     {
         id: 6,
-        question: "Indicația clasică pentru proteza totală este:",
+        question: "What is the main benefit of AWS Auto Scaling?",
         options: [
-            "Lipsa a 2-3 dinți în zona laterală",
-            "Edentație totală maxilară sau mandibulară",
-            "Pierderea unui singur incisiv central",
-            "Edentație unilaterală terminală"
+            "Automatically updates your applications",
+            "Automatically adjusts the number of instances based on demand",
+            "Automatically creates backups",
+            "Automatically monitors network traffic"
         ],
         correctAnswer: 1
     },
     {
         id: 7,
-        question: "Avantajul principal al dinților acrilici față de cei din porțelan este:",
+        question: "What is the purpose of IAM in AWS?",
         options: [
-            "Rezistență mai mare la abraziune",
-            "Fixare chimică bună pe baza acrilică",
-            "Estetică superioară porțelanului",
-            "Durabilitate mai mare"
+            "To store data",
+            "To manage user access and permissions",
+            "To launch virtual servers",
+            "To monitor website traffic"
         ],
         correctAnswer: 1
     },
     {
         id: 8,
-        question: "Metoda cea mai utilizată pentru determinarea dimensiunii verticale de ocluzie este:",
+        question: "Which AWS service is used to run serverless code?",
         options: [
-            "Relația centrică",
-            "Sunetele fonetice",
-            "Torus palatin",
-            "Analiza radiologică"
+            "EC2",
+            "Lambda",
+            "S3",
+            "RDS"
         ],
         correctAnswer: 1
     },
     {
         id: 9,
-        question: "Bara linguală este contraindicată atunci când:",
+        question: "What is CloudFront used for?",
         options: [
-            "Există spațiu vertical mare",
-            "Torus lingualul este voluminos",
-            "Arcadele sunt înguste",
-            "Dinții sunt ușor înclinați lingual"
+            "To store files",
+            "To deliver content via a Content Delivery Network (CDN)",
+            "To run virtual servers",
+            "To manage users"
         ],
         correctAnswer: 1
     },
     {
         id: 10,
-        question: "Obiectivul principal al tratamentului protetic este:",
+        question: "Which AWS service is best for object-based storage?",
         options: [
-            "Prevenirea cariilor secundare",
-            "Reabilitarea funcțiilor aparatului dento-maxilar",
-            "Reducerea mobilității dentare",
-            "Crearea de contacte premature"
+            "EC2",
+            "S3",
+            "Lambda",
+            "RDS"
         ],
         correctAnswer: 1
     }
@@ -295,7 +295,7 @@ function retryQuiz() {
 
             const data = await response.json();
             console.log("Score and email saved:", data);
-            alert("Adresa de e-mail a fost transmisa! Poti parasi testul sau sa il reiei.");
+            alert("You have successfully submitted your email! You may retake the test or leave.");
         }
         catch (err) {
             console.error("Error submitting quiz:", err);
