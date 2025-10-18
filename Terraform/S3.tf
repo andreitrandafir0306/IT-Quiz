@@ -3,37 +3,37 @@
 resource "random_uuid" "uuid" {}
 
 resource "aws_s3_bucket" "website" {
-  
+
   bucket = "it-quiz-${random_uuid.uuid.id}"
 
 
   tags = {
-    Name        = "Simple IT Quiz"
+    Name = "Simple IT Quiz"
   }
 }
 
 # Add index.html, index.css & index.js in the bucket
 
 resource "aws_s3_object" "html" {
-  bucket = aws_s3_bucket.website.bucket
-  key    = "index.html"
-  source = "../index.html"
+  bucket       = aws_s3_bucket.website.bucket
+  key          = "index.html"
+  source       = "../index.html"
   content_type = "text/html"
 }
 
 resource "aws_s3_object" "css" {
-  bucket = aws_s3_bucket.website.bucket
-  key    = "index.css"
-  source = "../index.css"
+  bucket       = aws_s3_bucket.website.bucket
+  key          = "index.css"
+  source       = "../index.css"
   content_type = "text/css"
 }
 
 resource "aws_s3_object" "js" {
-  bucket = aws_s3_bucket.website.bucket
-  key    = "index.js"
-  source = "../index.js"
+  bucket       = aws_s3_bucket.website.bucket
+  key          = "index.js"
+  source       = "../index.js"
   content_type = "application/javascript"
-  
+
 }
 
 
@@ -69,16 +69,16 @@ resource "aws_s3_bucket_acl" "website" {
 resource "aws_s3_bucket_policy" "quiz_policy" {
   bucket = aws_s3_bucket.website.id
 
- policy = jsonencode({
+  policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
-        Sid = "AllowCloudFrontServicePrincipalReadOnly"
+        Sid    = "AllowCloudFrontServicePrincipalReadOnly"
         Effect = "Allow"
         Principal = {
           Service = "cloudfront.amazonaws.com"
         }
-        Action = "s3:GetObject"
+        Action   = "s3:GetObject"
         Resource = "${aws_s3_bucket.website.arn}/*"
         Condition = {
           StringEquals = {

@@ -9,7 +9,7 @@ resource "aws_cloudfront_origin_access_control" "QuizAC" {
 
 # Setup CloudFront distribution with S3 & API GW Origin
 locals {
-  s3_origin_id = "myS3Origin"
+  s3_origin_id  = "myS3Origin"
   api_origin_id = "myAPIOrigin"
 }
 
@@ -22,17 +22,17 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   # Set up API GW origin
   origin {
-    domain_name              = "${aws_api_gateway_rest_api.quiz_api.id}.execute-api.${var.region}.amazonaws.com"
-    origin_id                = local.api_origin_id
-  
+    domain_name = "${aws_api_gateway_rest_api.quiz_api.id}.execute-api.${var.region}.amazonaws.com"
+    origin_id   = local.api_origin_id
+
 
     custom_origin_config {
-          http_port              = 80
-          https_port             = 443
-          origin_protocol_policy = "https-only"
-          origin_ssl_protocols   = ["TLSv1.2"]
-          
-  }
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "https-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+
+    }
   }
 
 
@@ -88,19 +88,19 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   price_class = "PriceClass_100"
 
-   restrictions {
+  restrictions {
     geo_restriction {
       restriction_type = "none"
     }
   }
 
-   tags = {
+  tags = {
     Name = "Quiz_Distribution"
   }
 
   viewer_certificate {
-  cloudfront_default_certificate = true
+    cloudfront_default_certificate = true
   }
- 
+
 }
 

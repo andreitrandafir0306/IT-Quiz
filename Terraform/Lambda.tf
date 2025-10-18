@@ -10,7 +10,7 @@ resource "aws_lambda_function" "submit_results" {
 
   environment {
     variables = {
-      TABLE_NAME = aws_dynamodb_table.quiz_results.name
+      TABLE_NAME        = aws_dynamodb_table.quiz_results.name
       DISTRIBUTION_NAME = "https://${aws_cloudfront_distribution.s3_distribution.domain_name}"
     }
   }
@@ -46,9 +46,9 @@ resource "aws_iam_role_policy" "lambda_dynamodb_policy" {
         Resource = aws_dynamodb_table.quiz_results.arn
       },
       {
-        Action  = ["cloudfront:GetDistribution", "cloudfront:ListDistributions"]
-        Effect  = "Allow"
-        Resource  = "*"
+        Action   = ["cloudfront:GetDistribution", "cloudfront:ListDistributions"]
+        Effect   = "Allow"
+        Resource = "*"
       },
       {
         Action   = ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"]

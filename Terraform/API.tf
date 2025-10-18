@@ -15,7 +15,7 @@ resource "aws_api_gateway_resource" "submit" {
 
 # Create OPTIONS method with MOCK integration to bypass browser-based CORS
 
-  resource "aws_api_gateway_method" "submit_options" {
+resource "aws_api_gateway_method" "submit_options" {
   rest_api_id   = aws_api_gateway_rest_api.quiz_api.id
   resource_id   = aws_api_gateway_resource.submit.id
   http_method   = "OPTIONS"
@@ -32,7 +32,7 @@ resource "aws_api_gateway_method_response" "method_response_200" {
   response_parameters = {
     "method.response.header.Access-Control-Allow-Headers" = true
     "method.response.header.Access-Control-Allow-Methods" = true
-    "method.response.header.Access-Control-Allow-Origin" = true
+    "method.response.header.Access-Control-Allow-Origin"  = true
   }
 }
 
@@ -57,11 +57,11 @@ resource "aws_api_gateway_integration_response" "quiz_integration_response" {
   status_code = aws_api_gateway_method_response.method_response_200.status_code
   response_parameters = {
     "method.response.header.Access-Control-Allow-Methods" = "'OPTIONS,POST'"
-    "method.response.header.Access-Control-Allow-Origin" = "'https://${aws_cloudfront_distribution.s3_distribution.domain_name}'"
+    "method.response.header.Access-Control-Allow-Origin"  = "'https://${aws_cloudfront_distribution.s3_distribution.domain_name}'"
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type'"
   }
-    response_templates = {
-    "application/json" = "{}"   # empty JSON body
+  response_templates = {
+    "application/json" = "{}" # empty JSON body
   }
 }
 
@@ -83,16 +83,16 @@ resource "aws_api_gateway_method_response" "post_method_response_200" {
   response_parameters = {
     "method.response.header.Access-Control-Allow-Headers" = true
     "method.response.header.Access-Control-Allow-Methods" = true
-    "method.response.header.Access-Control-Allow-Origin" = true
+    "method.response.header.Access-Control-Allow-Origin"  = true
   }
 }
 
 #Connect API GW with Lambda
 
 resource "aws_api_gateway_integration" "submit_post_integration" {
-  rest_api_id = aws_api_gateway_rest_api.quiz_api.id
-  resource_id = aws_api_gateway_resource.submit.id
-  http_method = aws_api_gateway_method.submit_post.http_method
+  rest_api_id             = aws_api_gateway_rest_api.quiz_api.id
+  resource_id             = aws_api_gateway_resource.submit.id
+  http_method             = aws_api_gateway_method.submit_post.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.submit_results.invoke_arn
