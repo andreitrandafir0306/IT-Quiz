@@ -46,6 +46,7 @@ It showcases a full end-to-end architecture: static front-end, API backend, serv
 │ ├── index.html
 │ ├── index.css
 │ ├── index.js
+| ├── config.js (will be created after provisioning infra with TF to be used as env var for API Gateway in JS)
 │ ├── function.py
 │
 ├── terraform/
@@ -89,7 +90,7 @@ It showcases a full end-to-end architecture: static front-end, API backend, serv
 1. Clone the repository:
    ```bash
    git clone https://github.com/andreitrandafir0306/IT-Quiz.git
-   cd quiz-app/terraform
+   cd IT-Quiz/Terraform
 
 2. Set up Terraform:
    ```bash

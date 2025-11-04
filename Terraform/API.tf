@@ -121,3 +121,4 @@ resource "aws_api_gateway_stage" "quiz_api_stage" {
   stage_name    = "success"
 }
 
+

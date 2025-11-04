@@ -36,6 +36,14 @@ resource "aws_s3_object" "js" {
 
 }
 
+resource "aws_s3_object" "jsconfig" {
+  bucket       = aws_s3_bucket.website.bucket
+  key          = "config.js"
+  source       = "../config.js"
+  content_type = "application/javascript"
+
+}
+
 
 # Public access block
 
