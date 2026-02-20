@@ -41,7 +41,7 @@ resource "aws_s3_object" "jsconfig" {
   key          = "config.js"
   source       = "../config.js"
   content_type = "application/javascript"
-
+  depends_on   = [aws_api_gateway_deployment.quiz_api_deploy, local_file.frontend_config]
 }
 
 
